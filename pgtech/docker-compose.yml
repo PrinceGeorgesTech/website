@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: /home/vcap/app/start.sh
+    volumes:
+      - .:/home/vcap/app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@db:5432/postgres"
+    depends_on:
+      - db
